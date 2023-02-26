@@ -22,11 +22,22 @@ public class svlCine extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session=request.getSession();
-		
+		dao.CineDAO cineDAO=new dao.CineDAO();
 		
 		Object idCine=request.getParameter("idCine");
 		if(idCine==null) {
-			session.setAttribute("id", "4");
+			
+			String[][] mCines=cineDAO.getVerCines();
+			session.setAttribute("id", mCines==null ? null:"4");
+			session.setAttribute("mCines", mCines);
+			
+			
+		}else {
+			String[] aCine=cineDAO.getCine(idCine);
+			session.setAttribute("id", aCine==null ? null:"5");
+			session.setAttribute("aCine", aCine);
+			session.setAttribute("mTarifas", cineDAO.getCineTarifas(idCine));
+			session.setAttribute("mPeliculas", cineDAO.getCinePeliculas(idCine));
 		}
 		
 		response.sendRedirect("index.jsp");

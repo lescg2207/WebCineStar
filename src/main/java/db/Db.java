@@ -48,8 +48,8 @@ public class Db {
 				int filas = rs.getRow();
 				int columnas = rs.getMetaData().getColumnCount();
 				String[][] mRegistros = new String[filas][columnas];
-
 				rs.beforeFirst();
+				
 				for (int fila = 0; rs.next(); fila++)
 					for (int columna = 0; columna < columnas; columna++)
 						mRegistros[fila][columna] = rs.getString(columna + 1).trim();
